@@ -14,10 +14,10 @@ const createMovieSchema = Joi.object({
 });
 
 const updateMovieSchema = Joi.object({
-  name: name,
-  premiereYear: premiereYear,
-  gender: gender,
-  iddirector: iddirector,
+  name: name.required(),
+  premiereYear: premiereYear.required(),
+  gender: gender.required(),
+  iddirector: iddirector.required(),
 });
 
 const getMovieSchema = Joi.object({

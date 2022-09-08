@@ -1,6 +1,7 @@
 const express = require('express');
 
 const MovieService = require('./../services/movie.service');
+const statusCode = require('../helper/statusCode');
 const { createMovieSchema, updateMovieSchema, getMovieSchema } = require('./../schemas/movie.schema');
 const validatorHandler = require('../middlwares/validator.handler');
 
@@ -36,17 +37,28 @@ router.post('/', validatorHandler(createMovieSchema, 'body'),
       const body = req.body;
       const newMovie = await service.create(body);
 
-      res.status(201).json(newMovie);
+      res.status(statusCode.Created).json(newMovie);
     } catch (error) {
       next(error);
     }
   }
 );
 
-// Hacer método PUT aquí
+router.put('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(updateMovieSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const movie = await service.update(id, body);
 
+      res.json(movie);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-router.patch('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(updateMovieSchema, 'body'),
+router.patch('/:id', validatorHandler(getMovieSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -66,7 +78,7 @@ router.delete('/:id', validatorHandler(getMovieSchema, 'params'),
       const { id } = req.params;
       const idDeleted = await service.delete(id);
 
-      res.status(201).json(idDeleted);
+      res.status(statusCode.OK).json(idDeleted);
     } catch (error) {
       next(error);
     }
