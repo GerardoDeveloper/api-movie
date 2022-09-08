@@ -20,8 +20,15 @@ const updateMovieSchema = Joi.object({
   iddirector: iddirector.required(),
 });
 
+const updatePartialMovieSchema = Joi.object({
+  name: name,
+  premiereYear: premiereYear,
+  gender: gender,
+  iddirector: iddirector,
+});
+
 const getMovieSchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = { createMovieSchema, updateMovieSchema, getMovieSchema }
+module.exports = { createMovieSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema }

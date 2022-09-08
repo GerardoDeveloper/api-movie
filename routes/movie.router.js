@@ -2,7 +2,7 @@ const express = require('express');
 
 const MovieService = require('./../services/movie.service');
 const statusCode = require('../helper/statusCode');
-const { createMovieSchema, updateMovieSchema, getMovieSchema } = require('./../schemas/movie.schema');
+const { createMovieSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema } = require('./../schemas/movie.schema');
 const validatorHandler = require('../middlwares/validator.handler');
 
 const router = express.Router();
@@ -58,7 +58,7 @@ router.put('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(
   }
 );
 
-router.patch('/:id', validatorHandler(getMovieSchema, 'params'),
+router.patch('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(updatePartialMovieSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
