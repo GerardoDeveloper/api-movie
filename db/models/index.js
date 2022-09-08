@@ -4,10 +4,12 @@
  */
 
 const { Movie, MovieSchema } = require('./movie.model');
+const { Director, DirectorSchema } = require('./director.model');
 
 // Configura los modelos.
 const setupModels = (sequelize) => {
   Movie.init(MovieSchema, Movie.config(sequelize));
+  Director.init(DirectorSchema, Director.config(sequelize));
 };
 
 module.exports = setupModels;
