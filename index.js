@@ -9,10 +9,10 @@ app.use(express.json());
 routerApi(app);
 
 // Use middleware errors
-app.use(logErrors); // Se captura el error.
-app.use(ormErrorHandler); // Se detecta si es un error de tipo ORM.
-app.use(boomErrorHandler); // Se detecta si en un error de tipo Boom.
-app.use(errorHandler); // Sí ninguno de los middleware anterior capturo nada, es capturado por este.
+app.use(logErrors); // The error is captured.
+app.use(ormErrorHandler); // It is detected if it is an ORM type error.
+app.use(boomErrorHandler); // It is detected if in a boom -type error.
+app.use(errorHandler); // Yes none of the previous middleware capture nothing, it is captured by this.
 
 // Listen port.
 app.listen(port, () => {

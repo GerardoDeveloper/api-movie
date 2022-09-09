@@ -31,7 +31,7 @@ class DirectorService {
   async update(id, changes) {
 
     /**
-     * Para no repetir código, sólo llamamos al método 'findOne' y él hará el trabajo de retornar el director si es encontrado.
+     * In order not to repeat code, we only call the 'Findone' method and he will do the work of returning the director if he is found.
      */
     const director = await this.findOne(id);
     const result = await director.update(changes);
@@ -40,10 +40,6 @@ class DirectorService {
   }
 
   async delete(id) {
-
-    /**
-     * Para no repetir código, sólo llamamos al método 'findOne' y él hará el trabajo de retornar el director si es encontrado.
-     */
     const director = await this.findOne(id);
     await director.destroy();
 

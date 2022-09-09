@@ -7,17 +7,13 @@ const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
 const sequelize = new Sequelize(URI, {
-  dialect: 'mysql', // Definimos a que base de datos nos vamos a conectar.
-  // logging: true, // Cada vez que se haga una consulta por el ORM, se imprimirá su equivalente de SQL en la consola. NOTA: Esto arroja la siguiente excepción '[SEQUELIZE0002] DeprecationWarning'
-  logging: console.log
+  dialect: 'mysql', // We define what database we are going to connect.
+  logging: console.log // Print a console log of all the requests to debugging.
 });
 
-// Creamos el modelo.
+// We create the model.
 setupModels(sequelize);
 
-/**
- * Hacemos una sincronización, es decir, sequelize va a agarrar los modelos y va a crear esas estructuras.
- */
 sequelize.sync();
 
 module.exports = sequelize;

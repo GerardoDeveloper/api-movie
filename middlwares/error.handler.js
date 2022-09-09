@@ -21,15 +21,15 @@ function boomErrorHandler(err, req, res, next) {
 }
 
 /**
- * Captura errores provenientes del ORM Sequelize.
- * @param {*} error El error.
- * @param {*} request La consulta o petición del cliente.
- * @param {*} response La respuesta al cliente.
- * @param {*} next Siguiente función a ejecutar.
+ * Capture errors from the ORM Sequelize.
+ * @param {*} error The error.
+ * @param {*} request Customer consultation or request.
+ * @param {*} response Customer response.
+ * @param {*} next Next function to be executed.
  */
 function ormErrorHandler(error, request, response, next) {
   /**
-   * Validamos sí el error viene desde Sequelize con 'ValidationError'
+   * We validate yes the error comes from Sequelize with 'Validationerror'
    */
   if (error instanceof ValidationError) {
     response.status(409).json({

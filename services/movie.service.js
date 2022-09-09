@@ -32,7 +32,7 @@ class MovieService {
 
 
     /**
-     * Para no repetir código, sólo llamamos al método 'findOne' y él hará el trabajo de retornar el movie si es encontrado.
+     * In order not to repeat code, we only call the 'Findone' method and he will do the work of returning the movie if he is found.
      */
     const movie = await this.findOne(id);
     const result = await movie.update(changes);
@@ -41,10 +41,6 @@ class MovieService {
   }
 
   async delete(id) {
-
-    /**
-     * Para no repetir código, sólo llamamos al método 'findOne' y él hará el trabajo de retornar el movie si es encontrado.
-     */
     const movie = await this.findOne(id);
     await movie.destroy();
 

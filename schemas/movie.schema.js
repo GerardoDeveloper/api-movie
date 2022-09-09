@@ -6,6 +6,7 @@ const premiereYear = Joi.number().integer();
 const gender = Joi.string();
 const iddirector = Joi.number().integer();
 
+// Validate for POST
 const createMovieSchema = Joi.object({
   name: name.required(),
   premiereYear: premiereYear.required(),
@@ -13,6 +14,7 @@ const createMovieSchema = Joi.object({
   iddirector: iddirector.required(),
 });
 
+// Validate for PUT
 const updateMovieSchema = Joi.object({
   name: name.required(),
   premiereYear: premiereYear.required(),
@@ -20,6 +22,7 @@ const updateMovieSchema = Joi.object({
   iddirector: iddirector.required(),
 });
 
+// Validate for PATCH
 const updatePartialMovieSchema = Joi.object({
   name: name,
   premiereYear: premiereYear,
