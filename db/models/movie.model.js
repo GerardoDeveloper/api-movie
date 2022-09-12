@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+const { DIRECTOR_TABLE } = require('./director.model');
 
 const MOVIE_TABLE = 'movies';
 
@@ -22,17 +23,23 @@ const MovieSchema = {
     allowNull: false,
     type: DataTypes.STRING
   },
-  iddirector: {
+  directorId: {
+    field: 'director_id',
     allowNull: false,
     type: DataTypes.INTEGER,
-    field: 'id_director'
+    references: {
+      model: DIRECTOR_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'NO ACTION'
   }
 }
 
 class Movie extends Model {
 
-  static associate() {
-
+  static associate(models) {
+    this.belongsTo(models.Director, { as: 'director' });
   }
 
   static config(sequelize) {

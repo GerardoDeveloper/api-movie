@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-const MOVIE_TABLE = 'directors';
+const DIRECTOR_TABLE = 'directors';
 
 const DirectorSchema = {
   id: {
@@ -24,14 +24,17 @@ const DirectorSchema = {
 
 class Director extends Model {
 
-  static associate() {
-
+  static associate(models) {
+    this.hasMany(models.Movie, {
+      as: 'movies',
+      foreignKey: 'director_id'
+    });
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: MOVIE_TABLE,
+      tableName: DIRECTOR_TABLE,
       modelName: 'Director',
       timestamps: false
     }
@@ -39,4 +42,4 @@ class Director extends Model {
 }
 
 
-module.exports = { MOVIE_TABLE, DirectorSchema, Director }
+module.exports = { DIRECTOR_TABLE, DirectorSchema, Director }

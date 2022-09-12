@@ -13,7 +13,11 @@ class MovieService {
   }
 
   async find() {
-    const result = await models.Movie.findAll();
+    const options = {
+      include: ['director']
+    }
+
+    const result = await models.Movie.findAll(options);
 
     return result;
   }
