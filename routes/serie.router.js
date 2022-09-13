@@ -2,7 +2,7 @@ const express = require('express');
 
 const SerieService = require('../services/serie.service');
 const statusCode = require('../helper/statusCode');
-const { createSerieSchema, updateSerieSchema, updatePartialSerieSchema, getSerieSchema } = require('./../schemas/serie.schema');
+const { createSerieSchema, createActorSchema, updateSerieSchema, updatePartialSerieSchema, getSerieSchema } = require('./../schemas/serie.schema');
 const validatorHandler = require('../middlwares/validator.handler');
 
 const router = express.Router();
@@ -25,6 +25,19 @@ router.get('/:id', validatorHandler(getSerieSchema, 'params'),
       const serie = await service.findOne(id);
 
       response.json(serie);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Add actors to serie
+router.post('/add-actor', validatorHandler(createActorSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newActor = await service.addActor(body);
+      res.status(201).json(newActor);
     } catch (error) {
       next(error);
     }

@@ -12,6 +12,12 @@ class SerieService {
     return newSerie;
   }
 
+  async addActor(data) {
+    const newActor = await models.ActorHasSerie.create(data);
+
+    return newActor;
+  }
+
   async find() {
     const options = {
       include: ['director']
