@@ -12,6 +12,12 @@ class MovieService {
     return newMovie;
   }
 
+  async addActor(data) {
+    const newActor = await models.ActorHasMovie.create(data);
+
+    return newActor;
+  }
+
   async find() {
     const options = {
       include: ['director']
@@ -23,7 +29,11 @@ class MovieService {
   }
 
   async findOne(id) {
-    const movie = await models.Movie.findByPk(id);
+    const associations = {
+      include: ['actors']
+    };
+
+    const movie = await models.Movie.findByPk(id, associations);
 
     if (!movie) {
       throw boom.notFound('movie not found');

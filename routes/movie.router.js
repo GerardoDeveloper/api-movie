@@ -2,7 +2,7 @@ const express = require('express');
 
 const MovieService = require('./../services/movie.service');
 const statusCode = require('../helper/statusCode');
-const { createMovieSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema } = require('./../schemas/movie.schema');
+const { createMovieSchema, createActorSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema } = require('./../schemas/movie.schema');
 const validatorHandler = require('../middlwares/validator.handler');
 
 const router = express.Router();
@@ -25,6 +25,19 @@ router.get('/:id', validatorHandler(getMovieSchema, 'params'),
       const movie = await service.findOne(id);
 
       res.json(movie);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Add actors to movie
+router.post('/add-actor', validatorHandler(createActorSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newActor = await service.addActor(body);
+      res.status(201).json(newActor);
     } catch (error) {
       next(error);
     }

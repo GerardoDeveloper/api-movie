@@ -6,12 +6,22 @@ const premiereYear = Joi.number().integer();
 const gender = Joi.string();
 const directorId = Joi.number().integer();
 
+// Fields table pivote
+const actorId = Joi.number().integer();
+const movieId = Joi.number().integer();
+
 // Validate for POST
 const createMovieSchema = Joi.object({
   name: name.required(),
   premiereYear: premiereYear.required(),
   gender: gender.required(),
   directorId: directorId.required(),
+});
+
+// Add actors to movie
+const createActorSchema = Joi.object({
+  actorId: actorId.required(),
+  movieId: movieId.required()
 });
 
 // Validate for PUT
@@ -34,4 +44,4 @@ const getMovieSchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = { createMovieSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema }
+module.exports = { createMovieSchema, createActorSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema }
