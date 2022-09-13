@@ -27,6 +27,10 @@ class Seanson extends Model {
 
   static associate(models) {
     this.belongsTo(models.Serie, { as: 'serie' });
+    this.hasMany(models.Episode, {
+      as: 'episodes',
+      foreignKey: 'seansonId'
+    });
   }
 
   static config(sequelize) {

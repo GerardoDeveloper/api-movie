@@ -34,6 +34,11 @@ class Director extends Model {
       as: 'series',
       foreignKey: 'director_id'
     });
+
+    this.hasMany(models.Episode, {
+      as: 'episodes',
+      foreignKey: 'directorId'
+    });
   }
 
   static config(sequelize) {
