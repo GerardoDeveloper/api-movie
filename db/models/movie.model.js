@@ -40,6 +40,12 @@ class Movie extends Model {
 
   static associate(models) {
     this.belongsTo(models.Director, { as: 'director' });
+    this.belongsToMany(models.Actor, {
+      as: 'actors',
+      through: models.ActorHasMovie,
+      foreignKey: 'actorId',
+      otherKey: 'movieId'
+    })
   }
 
   static config(sequelize) {
