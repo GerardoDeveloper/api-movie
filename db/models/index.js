@@ -9,6 +9,7 @@ const { Actor, ActorSchema } = require('./actor.model');
 const { Serie, SerieSchema } = require('./serie.model');
 const { ActorHasMovie, ActorHasMovieSchema } = require('./actor_has_movie.model');
 const { ActorHasSerie, ActorHasSerieSchema } = require('./actor_has_serie.model');
+const { Seanson, SeansonSchema } = require('./seanson.model');
 
 // Configura los modelos.
 const setupModels = (sequelize) => {
@@ -18,11 +19,13 @@ const setupModels = (sequelize) => {
   Serie.init(SerieSchema, Serie.config(sequelize));
   ActorHasMovie.init(ActorHasMovieSchema, ActorHasMovie.config(sequelize));
   ActorHasSerie.init(ActorHasSerieSchema, ActorHasSerie.config(sequelize));
+  Seanson.init(SeansonSchema, Seanson.config(sequelize));
 
   Movie.associate(sequelize.models);
   Director.associate(sequelize.models);
   Actor.associate(sequelize.models);
   Serie.associate(sequelize.models);
+  Seanson.associate(sequelize.models);
 };
 
 module.exports = setupModels;

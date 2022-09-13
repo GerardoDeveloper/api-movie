@@ -31,6 +31,7 @@ class Serie extends Model {
 
   static associate(models) {
     this.belongsTo(models.Director, { as: 'director' });
+    this.hasMany(models.Seanson, { as: 'seansons', foreignKey: 'serieId'})
     this.belongsToMany(models.Actor, {
       as: 'actors',
       through: models.ActorHasSerie,
