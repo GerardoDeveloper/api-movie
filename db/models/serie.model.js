@@ -31,6 +31,12 @@ class Serie extends Model {
 
   static associate(models) {
     this.belongsTo(models.Director, { as: 'director' });
+    this.belongsToMany(models.Actor, {
+      as: 'actors',
+      through: models.ActorHasSerie,
+      foreignKey: 'actorId',
+      otherKey: 'serieId'
+    });
   }
 
   static config(sequelize) {

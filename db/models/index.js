@@ -8,6 +8,7 @@ const { Director, DirectorSchema } = require('./director.model');
 const { Actor, ActorSchema } = require('./actor.model');
 const { Serie, SerieSchema } = require('./serie.model');
 const { ActorHasMovie, ActorHasMovieSchema } = require('./actor_has_movie.model');
+const { ActorHasSerie, ActorHasSerieSchema } = require('./actor_has_serie.model');
 
 // Configura los modelos.
 const setupModels = (sequelize) => {
@@ -16,6 +17,7 @@ const setupModels = (sequelize) => {
   Actor.init(ActorSchema, Actor.config(sequelize));
   Serie.init(SerieSchema, Serie.config(sequelize));
   ActorHasMovie.init(ActorHasMovieSchema, ActorHasMovie.config(sequelize));
+  ActorHasSerie.init(ActorHasSerieSchema, ActorHasSerie.config(sequelize));
 
   Movie.associate(sequelize.models);
   Director.associate(sequelize.models);
