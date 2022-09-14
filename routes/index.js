@@ -6,6 +6,7 @@ const directorsRouter = require('./director.router');
 const actorsRouter = require('./actor.router');
 const seriesRouter = require('./serie.router');
 const seansonRouter = require('./seanson.router');
+const episodeRouter = require('./episode.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -15,6 +16,7 @@ function routerApi(app) {
   router.use('/actors', actorsRouter);
   router.use('/series', seriesRouter);
   router.use('/seansons', seansonRouter);
+  router.use('/episodes', episodeRouter);
 }
 
 module.exports = routerApi;
