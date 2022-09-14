@@ -15,11 +15,8 @@ class SerieService {
   async find() {
     const options = {
       include: [
-        {
-          association: 'seanson',
-          include: ['serie']
-        },
-        'director'
+        'director',
+        'seanson'
       ]
     }
 
@@ -29,7 +26,17 @@ class SerieService {
   }
 
   async findOne(id) {
-    const episode = await models.Episode.findByPk(id);
+    const options = {
+      include: [
+        {
+          association: 'seanson',
+          include: ['serie']
+        },
+        'director'
+      ]
+    }
+
+    const episode = await models.Episode.findByPk(id, options);
 
     if (!episode) {
       throw boom.notFound('episode not found');
