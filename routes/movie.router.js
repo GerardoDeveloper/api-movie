@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 const MovieService = require('./../services/movie.service');
 const statusCode = require('../helper/statusCode');
@@ -11,6 +12,7 @@ const {
   queryParamsMovieSchema
 } = require('./../schemas/movie.schema');
 const validatorHandler = require('../middlwares/validator.handler');
+const { checkRoles } = require('./../middlwares/auth.handler');
 
 const router = express.Router();
 const service = new MovieService();
@@ -26,7 +28,10 @@ router.get('/', validatorHandler(queryParamsMovieSchema, 'query'), async (req, r
   }
 });
 
-router.get('/:id', validatorHandler(getMovieSchema, 'params'),
+router.get('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin', 'customer'), // We send the array to closure with the enabled permits.
+  validatorHandler(getMovieSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -40,7 +45,10 @@ router.get('/:id', validatorHandler(getMovieSchema, 'params'),
 );
 
 // Add actors to movie
-router.post('/add-actor', validatorHandler(createActorSchema, 'body'),
+router.post('/add-actor',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(createActorSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -52,7 +60,10 @@ router.post('/add-actor', validatorHandler(createActorSchema, 'body'),
   }
 );
 
-router.post('/', validatorHandler(createMovieSchema, 'body'),
+router.post('/',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(createMovieSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -65,7 +76,11 @@ router.post('/', validatorHandler(createMovieSchema, 'body'),
   }
 );
 
-router.put('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(updateMovieSchema, 'body'),
+router.put('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getMovieSchema, 'params'),
+  validatorHandler(updateMovieSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -79,7 +94,11 @@ router.put('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(
   }
 );
 
-router.patch('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandler(updatePartialMovieSchema, 'body'),
+router.patch('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getMovieSchema, 'params'),
+  validatorHandler(updatePartialMovieSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -93,7 +112,10 @@ router.patch('/:id', validatorHandler(getMovieSchema, 'params'), validatorHandle
   }
 );
 
-router.delete('/:id', validatorHandler(getMovieSchema, 'params'),
+router.delete('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getMovieSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
