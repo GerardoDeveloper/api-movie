@@ -3,6 +3,8 @@
 
 This project uses the design pattern **The Clean Architecture**.
 
+![](https://xurxodev.com/content/images/size/w1000/2016/07/CleanArchitecture-8b00a9d7e2543fa9ca76b81b05066629.jpg)
+
 ## Installation
 
 Installation of bookstores and dependencies with npm
