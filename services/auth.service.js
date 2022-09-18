@@ -23,6 +23,18 @@ class AuthService {
     return data;
   }
 
+  refreshToken(user) {
+    const payload = {
+      sub: user.id,
+      role: user.role
+    }
+
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '1m' });
+    const data = { user, token };
+
+    return data;
+  }
+
   async getUser(email, password) {
     const user = await service.findByEmail(email);
 
