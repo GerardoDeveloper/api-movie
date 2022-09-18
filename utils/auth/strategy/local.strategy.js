@@ -1,9 +1,8 @@
 const { Strategy } = require('passport-local');
-const UserService = require('../../../services/user.service');
-const boom = require('@hapi/boom');
-const bcrypt = require('bcrypt');
+const AuthService = require('../../../services/auth.service');
 
-const service = new UserService();
+
+const service = new AuthService();
 
 const localStrategy = new Strategy({
 
@@ -13,23 +12,9 @@ const localStrategy = new Strategy({
 },
   async (email, password, done) => {
     try {
-      const user = await service.findByEmail(email);
 
-      // If the client is not found, we show that it is not authorized.
-      if (!user) {
-        done(boom.unauthorized(), false);
-      }
-
-      // If the user finds, compare the passwords.
-      const isMatch = await bcrypt.compare(password, user.password);
-
-      // We validate if it is not authorized. That is, a valid password is not supplied.
-      if (!isMatch) {
-        done(boom.unauthorized(), false);
-      }
-
-      // We remove the password from the User object so that the client is not visualized.
-      delete user.dataValues.password;
+      // The user is obtained.
+      const user = await service.getUser(email, password);
 
       // If all the previous validations were passed, it is because there were no errors.
       done(null, user);

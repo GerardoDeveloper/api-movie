@@ -2,7 +2,9 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config/config')
+const AuthService = require('../services/auth.service');
 
+const service = new AuthService();
 const router = express.Router();
 
 router.post('/login',
@@ -10,19 +12,12 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const user = req.user;
-      const payload = {
-        sub: user.id, // We identify the user by your id.
-        role: user.role // We get the roles.
-      }
 
       // We sign the payload.
-      const token = jwt.sign(payload, config.jwtSecret);
+      const data = service.signToken(user);
 
       // We return the data to the client.
-      res.status(200).json({
-        user,
-        token
-      });
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }
