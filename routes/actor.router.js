@@ -1,24 +1,30 @@
 const express = require('express');
+const passport = require('passport');
 
 const ActorService = require('../services/actor.service');
 const statusCode = require('../helper/statusCode');
 const { createActorSchema, updateActorSchema, updatePartialActorSchema, getActorSchema } = require('./../schemas/actor.schema');
+const { checkRoles } = require('./../middlwares/auth.handler');
 const validatorHandler = require('../middlwares/validator.handler');
 
 const router = express.Router();
 const service = new ActorService();
 
-router.get('/', async (request, response, next) => {
-  try {
-    const actor = await service.find();
+router.get('/',
+  async (request, response, next) => {
+    try {
+      const actor = await service.find();
 
-    response.json(actor);
-  } catch (error) {
-    next(error);
-  }
-});
+      response.json(actor);
+    } catch (error) {
+      next(error);
+    }
+  });
 
-router.get('/:id', validatorHandler(getActorSchema, 'params'),
+router.get('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin', 'customer'), // We send the array to closure with the enabled permits.
+  validatorHandler(getActorSchema, 'params'),
   async (request, response, next) => {
     try {
       const { id } = request.params;
@@ -31,7 +37,10 @@ router.get('/:id', validatorHandler(getActorSchema, 'params'),
   }
 );
 
-router.post('/', validatorHandler(createActorSchema, 'body'),
+router.post('/',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(createActorSchema, 'body'),
   async (request, response, next) => {
     try {
       const body = request.body;
@@ -44,7 +53,11 @@ router.post('/', validatorHandler(createActorSchema, 'body'),
   }
 );
 
-router.put('/:id', validatorHandler(getActorSchema, 'params'), validatorHandler(updateActorSchema, 'body'),
+router.put('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getActorSchema, 'params'),
+  validatorHandler(updateActorSchema, 'body'),
   async (request, response, next) => {
     try {
       const { id } = request.params;
@@ -58,7 +71,11 @@ router.put('/:id', validatorHandler(getActorSchema, 'params'), validatorHandler(
   }
 );
 
-router.patch('/:id', validatorHandler(getActorSchema, 'params'), validatorHandler(updatePartialActorSchema, 'body'),
+router.patch('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getActorSchema, 'params'),
+  validatorHandler(updatePartialActorSchema, 'body'),
   async (request, response, next) => {
     try {
       const { id } = request.params;
@@ -72,7 +89,10 @@ router.patch('/:id', validatorHandler(getActorSchema, 'params'), validatorHandle
   }
 );
 
-router.delete('/:id', validatorHandler(getActorSchema, 'params'),
+router.delete('/:id',
+  passport.authenticate('jwt', { session: false }), // This middleware validates the strategy 'jwt'
+  checkRoles('admin'), // We send the array to closure with the enabled permits.
+  validatorHandler(getActorSchema, 'params'),
   async (request, response, next) => {
     try {
       const { id } = request.params;

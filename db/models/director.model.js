@@ -27,12 +27,17 @@ class Director extends Model {
   static associate(models) {
     this.hasMany(models.Movie, {
       as: 'movies',
-      foreignKey: 'director_id' // aquí esta el problema, debe ir 'directorId', es decir, como es tratado en js
+      foreignKey: 'directorId' // aquí esta el problema, debe ir 'directorId', es decir, como es tratado en js
     });
 
     this.hasMany(models.Serie, {
       as: 'series',
-      foreignKey: 'director_id'
+      foreignKey: 'directorId'
+    });
+
+    this.hasMany(models.Episode, {
+      as: 'episodes',
+      foreignKey: 'directorId'
     });
   }
 

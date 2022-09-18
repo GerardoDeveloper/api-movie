@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom');
+const sequelize = require('sequelize');
 const { models } = require('../libs/sequelize');
 
 class MovieService {
@@ -18,9 +19,15 @@ class MovieService {
     return newActor;
   }
 
-  async find() {
+  async find(query) {
     const options = {
-      include: ['director']
+      include: ['director'],
+    }
+
+    const { orderBy } = query;
+
+    if (orderBy) {
+      options.order = [[orderBy, 'DESC']]
     }
 
     const result = await models.Movie.findAll(options);

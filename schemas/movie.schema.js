@@ -10,6 +10,9 @@ const directorId = Joi.number().integer();
 const actorId = Joi.number().integer();
 const movieId = Joi.number().integer();
 
+// filtering field
+const orderBy = Joi.string();
+
 // Validate for POST
 const createMovieSchema = Joi.object({
   name: name.required(),
@@ -44,4 +47,8 @@ const getMovieSchema = Joi.object({
   id: id.required(),
 });
 
-module.exports = { createMovieSchema, createActorSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema }
+const queryParamsMovieSchema = Joi.object({
+  orderBy
+});
+
+module.exports = { createMovieSchema, createActorSchema, updateMovieSchema, updatePartialMovieSchema, getMovieSchema, queryParamsMovieSchema }

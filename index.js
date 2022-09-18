@@ -6,6 +6,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+// Dynamic require that will execute all the authentication logic.
+require('./utils/auth');
 routerApi(app);
 
 // Use middleware errors
