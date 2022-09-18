@@ -32,8 +32,6 @@ router.post('/refresh-token',
       // We sign the payload.
       const data = service.refreshToken(user);
 
-      console.log(`user: ${JSON.stringify(data, null, 4)}`);
-
       // We return the data to the client.
       res.status(200).json(data);
     } catch (error) {
