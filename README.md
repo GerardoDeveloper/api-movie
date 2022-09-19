@@ -53,6 +53,15 @@ To run this project, you will need to add the following environment variables to
 
 Each of the entities have their respective CRUD.
 
+## Collections postman
+
+All Endpoint of all entities are in the folder **collections.postman**.
+
+## Entity model relationship
+
+The Entity Relationship model is in the **EMR** folder.
+**Note**: It can be opened with Workbench.
+
 ## Endpoint example
 
 #### Get all movies
