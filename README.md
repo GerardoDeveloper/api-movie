@@ -15,6 +15,31 @@ Installation of bookstores and dependencies with npm
 
 In this way all libraries and dependencies found in package.json will be installed.
 
+
+# BBDD
+
+The data is persisted in an MySQL database.
+But, when working with the ORM Sequelize, you can work with other types of relational databases such as:
+
+- pg pg-hstore # Postgres
+- mysql2
+- mariadb
+- sqlite3
+- tedious - **Microsoft SQL Server**
+- oracledb - **Oracle Database**
+
+For this, the following controllers must be installed.
+```
+# One of the following:
+$ npm install --save pg pg-hstore # Postgres
+$ npm install --save mysql2
+$ npm install --save mariadb
+$ npm install --save sqlite3
+$ npm install --save tedious # Microsoft SQL Server
+$ npm install --save oracledb # Oracle Database
+```
+**NOTE**: This only if you want to try another database other than MySQL. The project was created and configured with MySQL, so trying to execute in another BBDD does not guarantee its correct operation.
+
 ## Project description
 
 This project is an API Rest that obtains information from **movies**, **actors**, **directors**, **series** and **seasons**.
